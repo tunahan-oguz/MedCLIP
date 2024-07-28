@@ -15,7 +15,7 @@ from torch.optim import Optimizer
 from torch import distributed as dist
 import transformers
 
-WEIGHTS_NAME = "pytorch_model.bin"
+WEIGHTS_NAME = "med_clip.bin"
 
 class Trainer:
     '''trainer for single-gpu training.

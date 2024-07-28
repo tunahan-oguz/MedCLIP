@@ -23,6 +23,7 @@ class MedCLIPTextModel(nn.Module):
         self.model = AutoModel.from_pretrained(self.bert_type, output_hidden_states=True)
         # this tokenizer is actually not used
         self.tokenizer = AutoTokenizer.from_pretrained(self.bert_type)
+        # self.tokenizer.model_max_length = 256
         self.projection_head = nn.Linear(768, proj_dim, bias=proj_bias)
 
     def forward(self, input_ids, attention_mask):
@@ -142,7 +143,7 @@ class MedCLIPModel(nn.Module):
 
         # learnable temperature for contrastive loss
         self.logit_scale = nn.Parameter(torch.log(torch.tensor(1/logit_scale_init_value)))
-
+        
         if checkpoint is not None:
             state_dict = torch.load(os.path.join(checkpoint, constants.WEIGHTS_NAME))
             self.load_state_dict(state_dict)
